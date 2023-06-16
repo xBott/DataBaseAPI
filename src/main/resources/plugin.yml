@@ -1,0 +1,11 @@
+name: DataBaseAPI
+version: '${project.version}'
+main: me.bottdev.databaseapi.DataBaseAPI
+api-version: 1.18
+authors: [ _xBott ]
+description: DataBase utils for my plugins
+commands:
+  db:
+    usage: /db <args>
+    aliases:
+      - database
