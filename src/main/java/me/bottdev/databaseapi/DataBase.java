@@ -40,7 +40,7 @@ public class DataBase {
     public void Connect() {
         if (!isConnected()) {
             try {
-                String url = "jdbc:mysql://" + host + ":" + port + "/" + id + "?useSSL=false";
+                String url = "jdbc:mysql://" + host + ":" + port + "/" + id + "?useSSL=false&useUnicode=true&characterEncoding=utf8";
                 connection = DriverManager.getConnection(url, user, password);
 
                 loadTablesIds();

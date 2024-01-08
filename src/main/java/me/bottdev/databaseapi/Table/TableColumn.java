@@ -36,7 +36,7 @@ public class TableColumn {
     }
 
 
-    private void loadValues() {
+    public void loadValues() {
         try {
             Statement statement = dataBase.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT " + id + " FROM " + dataTable.getId());
@@ -185,6 +185,8 @@ public class TableColumn {
         if (!indexes.isEmpty()) {
             values.replace(indexes.get(0), value);
             updateValue(value, conditions);
+
+            System.out.println(getTable().getId() + " - " + getId() + " Updated: " + indexes.get(0) + " - " + value.toString());
         }
     }
 
@@ -261,6 +263,7 @@ public class TableColumn {
                 String value = String.valueOf(condition.value);
 
                 Object object = column.getValue(i);
+                System.out.println(" Checking: " + value + " / " + object.toString());
 
                 switch (column.getType()) {
                     case "TEXT" -> {
@@ -375,6 +378,10 @@ public class TableColumn {
         }
 
         return results;
+    }
+
+    public void addValue(Object o) {
+        values.put(getValues().size(), o);
     }
 
 

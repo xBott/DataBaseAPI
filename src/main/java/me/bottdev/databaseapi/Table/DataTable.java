@@ -3,6 +3,7 @@ package me.bottdev.databaseapi.Table;
 import me.bottdev.databaseapi.DataBase;
 import me.bottdev.databaseapi.DataBaseAPI;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.checkerframework.checker.units.qual.C;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -33,7 +34,9 @@ public class DataTable {
 
     }
 
-    private void loadColumns() {
+    public void loadColumns() {
+        System.out.println("-----------------" + id + "-----------------");
+
         try {
             columns.clear();
             column_ids.clear();
@@ -106,6 +109,7 @@ public class DataTable {
             @Override
             public void run() {
                 try {
+
                     Statement statement = dataBase.getConnection().createStatement();
 
                     StringBuilder query = new StringBuilder("INSERT INTO " + id + "(");
@@ -131,7 +135,12 @@ public class DataTable {
 
                     statement.executeUpdate(query.toString());
 
-                    loadColumns();
+                    for (int i = 0; i < getColumns().size(); i++) {
+                        TableColumn column = getColumns().get(i);
+                        column.addValue(values[i]);
+                    }
+
+                    rows_count++;
 
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -162,6 +171,8 @@ public class DataTable {
 
                     statement.executeUpdate(query.toString());
                     loadColumns();
+
+                    rows_count--;
 
                 } catch (SQLException e) {
                     e.printStackTrace();
